@@ -1,0 +1,19 @@
+---
+# handlers file for sshuttle
+- name: daemon reload
+  systemd:
+    daemon_reload: true
+  listen: daemon_reload
+
+- name: start sshuttle service
+  service:
+    name: sshuttle
+    state: started
+    enabled: true
+  listen: start sshuttle
+
+- name: restart sshuttle service
+  service:
+    name: sshuttle
+    state: restarted
+  listen: restart sshuttle

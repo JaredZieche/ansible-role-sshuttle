@@ -1,0 +1,5 @@
+---
+# defaults file for sshuttle
+sshuttle_user: sshuttle
+sshuttle_group: sshuttle
+sshuttle_package: sshuttle

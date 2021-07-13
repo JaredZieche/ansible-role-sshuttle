@@ -1,0 +1,53 @@
+---
+# tasks file for sshuttle
+- name: "Include tasks from {{ ansible_pkg_mgr }}.yml"
+  include_tasks:
+    file: "{{ ansible_pkg_mgr }}.yml"
+
+- name: "add {{ sshuttle_group }}"
+  group:
+    name: "{{ sshuttle_group }}"
+    state: present
+
+- name: add required sshuttle sudo privileges
+  template:
+    src: "sshuttle_sudoers.j2"
+    dest: "/etc/sudoers.d/sshuttle"
+    owner: root
+    group: root
+    mode: 0440
+
+- name: create sshuttle unit file
+  template:
+    src: "sshuttle.service.j2"
+    dest: "/etc/systemd/system/sshuttle.service"
+    owner: root
+    group: root
+    mode: 0440
+  notify: daemon reload
+
+- name: ensure sshuttle directory exists
+  file:
+    state: directory
+    path: /etc/sshuttle
+    owner: "{{ sshuttle_user }}"
+    group: "{{ sshuttle_group }}"
+  register: sshuttle_dir
+
+- name: add sshuttle start script
+  copy:
+    src: sshuttle.py
+    dest: "{{ sshuttle_dir.path }}"
+    owner: "{{ sshuttle_user }}"
+    group: "{{ sshuttle_group }}"
+    mode: 0755
+  notify: start sshuttle
+
+- name: add sshuttle config.json
+  template:
+    src: config.json.j2
+    dest: "{{ sshuttle_dir.path }}/config.json"
+    owner: "{{ sshuttle_user }}"
+    group: "{{ sshuttle_group }}"
+    mode: 0644
+  notify: restart sshuttle

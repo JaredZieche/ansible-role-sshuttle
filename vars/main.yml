@@ -1,0 +1,7 @@
+---
+# vars file for sshuttle
+sshuttle_hosts:
+  vbms-tooling:
+    - 10.0.0.0/24
+    - 10.0.0.0/24
+    - 10.0.0.0/24
