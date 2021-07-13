@@ -35,9 +35,9 @@
   register: sshuttle_dir
 
 - name: add sshuttle start script
-  copy:
-    src: sshuttle.py
-    dest: "{{ sshuttle_dir.path }}"
+  template:
+    src: sshuttle.py.j2
+    dest: "{{ sshuttle_dir.path }}/shuttle.py"
     owner: "{{ sshuttle_user }}"
     group: "{{ sshuttle_group }}"
     mode: 0755

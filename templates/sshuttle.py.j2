@@ -20,7 +20,7 @@ handler.setFormatter(formatter)
 log.addHandler(handler)
 
 conf = "/etc/sshuttle/config.json"
-ssh_user = "sshuttle"  ## username thats used for SSH connection
+ssh_user = "{{ sshuttle_user }}"  ## username thats used for SSH connection
 
 def precheck():
     if len(sys.argv) < 2:
