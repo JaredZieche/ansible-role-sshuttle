@@ -1,8 +1,9 @@
 ---
 # tasks file for sshuttle
-- name: "Include tasks from {{ ansible_pkg_mgr }}.yml"
-  include_tasks:
-    file: "{{ ansible_pkg_mgr }}.yml"
+- name: "install {{ sshuttle_package }} via {{ ansible_pkg_mgr }}"
+  package:
+    name: "{{ sshuttle_package }}"
+    manager: auto
 
 - name: "add {{ sshuttle_group }}"
   group:

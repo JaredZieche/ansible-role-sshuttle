@@ -70,7 +70,7 @@ def start():
         netrange = netrange.strip()
 
         # build rpath
-        rpath = "-r {0}@{1} {2} -l listen '0.0.0.0' --ssh-cmd 'ssh -o ServerAliveInterval=60' --no-latency-control".format(ssh_user, rhost, netrange)
+        rpath = "-r {0}@{1} {2} -l listen '127.0.0.1' --ssh-cmd '{{ ssh_cmd_args }}' {{ sshuttle_args }}".format(ssh_user, rhost, netrange)
         try:
             print("starting sshuttle..")
             log.info("starting sshuttle for networks: %s via %s" % (netrange, rhost))

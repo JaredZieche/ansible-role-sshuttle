@@ -1,4 +1,0 @@
-- name: "Install sshuttle via {{ ansible_pkg_mgr }}"
-  apt:
-    name: "{{ sshuttle_package }}"
-    state: present
