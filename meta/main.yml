@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: sshutle
+  role_name: sshuttle
   author: Jared Zieche
   description: Install sshuttle as a service
   license: MIT
