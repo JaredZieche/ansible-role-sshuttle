@@ -2,7 +2,7 @@ Role Name
 =========
 
 Installs [sshuttle](https://sshuttle.readthedocs.io/en/stable/index.html) as a system service
-
+![Ansible Role](https://img.shields.io/ansible/role/55708?logo=ansible)
 Requirements
 ------------
 
