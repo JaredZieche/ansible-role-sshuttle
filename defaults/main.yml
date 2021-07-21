@@ -8,5 +8,6 @@ sshuttle_hosts:
     - 10.0.0.0/24
     - 172.16.0.0/24
     - 192.168.0.0.0/24
+sshuttle_options: "--dns"
 sshuttle_args: "--no-latency-control"
 ssh_cmd_args: "ssh -o ServerAliveInterval=60"
