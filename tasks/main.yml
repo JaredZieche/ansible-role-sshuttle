@@ -1,7 +1,7 @@
 ---
 # tasks file for sshuttle
 - name: "install {{ sshuttle_package }} via {{ ansible_pkg_mgr }}"
-  package:
+  ansible.builtin.package:
     name: "{{ sshuttle_package }}"
 
 - name: "add {{ sshuttle_group }}"
