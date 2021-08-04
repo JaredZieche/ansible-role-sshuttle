@@ -8,8 +8,8 @@ Installs [sshuttle](https://sshuttle.readthedocs.io/en/stable/index.html) as a s
 Requirements
 ------------
 
-SSH connectivity to the remote host specified in your config.
-Linux system running systemd service handler
+SSH connectivity to a remote host specified in an ssh config file.
+Linux system running systemd service manager
 
 Role Variables
 --------------

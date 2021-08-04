@@ -3,7 +3,6 @@
 - name: "install {{ sshuttle_package }} via {{ ansible_pkg_mgr }}"
   package:
     name: "{{ sshuttle_package }}"
-    manager: auto
 
 - name: "add {{ sshuttle_group }}"
   group:
