@@ -9,6 +9,25 @@
     name: "{{ sshuttle_group }}"
     state: present
 
+- name: "Add {{ sshuttle_user }}"
+  user:
+    name: "{{ sshuttle_user }}"
+    generate_ssh_key: yes
+    state: present
+  register: user_result
+
+- name: "Add {{ sshuttle_host_ip }}"
+  add_host:
+    name: "{{ sshuttle_host_ip }}"
+    groups: remote
+
+- name: "Add ssh key to remote host"
+  authorized_key:
+    user: "{{ sshuttle_user }}"
+    key: "{{ user_result.ssh_public_key }}"
+    state: present
+  when: invetory_hostname in groups['remote']
+
 - name: add required sshuttle sudo privileges
   template:
     src: "sshuttle_sudoers.j2"
