@@ -38,11 +38,11 @@
       set_fact:
         private_key_path: "{{ user_result.ssh_key_file }}"
 
-
     - name: "Create {{ remote_username }} ssh config"
       template:
         dest: "{{ user_result.home }}/.ssh/config"
         src: sshconfig.j2
+        backup: true
   when: remote_auth
 
 - name: add required sshuttle sudo privileges
