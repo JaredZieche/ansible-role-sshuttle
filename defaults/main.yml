@@ -4,7 +4,7 @@ sshuttle_user: sshuttle
 sshuttle_group: sshuttle
 sshuttle_package: sshuttle
 sshuttle_hosts:
-  "{{ sshuttle_remote_hostname }}":
+  "{{ remote_hostname }}":
     - 10.0.0.0/24
     - 172.16.0.0/24
     - 192.168.0.0.0/24
