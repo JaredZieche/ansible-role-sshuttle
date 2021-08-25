@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: sshuttle
-    image: docker.io/pycontribs/centos:8
+    image: centos-va:latest #docker.io/pycontribs/centos:8
     pre_build_image: true
 provisioner:
   name: ansible
