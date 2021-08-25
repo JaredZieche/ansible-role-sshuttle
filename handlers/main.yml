@@ -4,6 +4,8 @@
   systemd:
     daemon_reload: true
   listen: daemon_reload
+  when: ansible_service_mgr == "systemd"
+  become: true
 
 - name: start sshuttle service
   service:
@@ -11,9 +13,11 @@
     state: started
     enabled: true
   listen: start sshuttle
+  become: true
 
 - name: restart sshuttle service
   service:
     name: sshuttle
     state: restarted
   listen: restart sshuttle
+  become: true

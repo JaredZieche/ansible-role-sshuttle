@@ -4,10 +4,15 @@ sshuttle_user: sshuttle
 sshuttle_group: sshuttle
 sshuttle_package: sshuttle
 sshuttle_hosts:
-  remote_server1:
+  "{{ sshuttle_remote_hostname }}":
     - 10.0.0.0/24
     - 172.16.0.0/24
     - 192.168.0.0.0/24
 sshuttle_options: "--dns"
 sshuttle_args: "--no-latency-control"
 ssh_cmd_args: "ssh -o ServerAliveInterval=60"
+remote_auth: false
+remote_username: "{{ sshuttle_user }}"
+remote_password: "Valid password for auth to remote hostname"
+remote_hostname: "name of host for .ssh/config"
+remote_ip: "IP address of remote_hostname"
