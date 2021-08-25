@@ -1,6 +1,6 @@
 galaxy_info:
   role_name: sshuttle
-  author: Jared Zieche
+  author: jaredzieche
   description: Install sshuttle as a service
   license: MIT
   min_ansible_version: 2.9

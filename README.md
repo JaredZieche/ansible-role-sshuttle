@@ -8,8 +8,8 @@ Installs [sshuttle](https://sshuttle.readthedocs.io/en/stable/index.html) as a s
 Requirements
 ------------
 
-SSH connectivity to a remote host specified in an ssh config file.
-Linux system running systemd service manager
+SSH connectivity to a remote host where tunnel will e established
+Linux Host
 
 Role Variables
 --------------
@@ -21,6 +21,10 @@ Role Variables
 - sshuttle_options: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe the sshuttle connections in [shuttle.py](templates/shuttle.py.j2).
 - sshuttle_args: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe additional arguments in [shuttle.py](templates/shuttle.py.j2).
 - ssh_cmd_args: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe the ssh command in [shuttle.py](templates/shuttle.py.j2).
+- remote_auth: true/false, if true role will attempt to authorize user to remote tunnel host. Default is false.
+- remote_ip: IP address of the remote host through which sshuttle will connect.
+- remote_user: Username that can be used to authorize with remote_host.
+- remote_hostname: name for the remote host entry in your .ssh/config.
 
 
 Example Playbook

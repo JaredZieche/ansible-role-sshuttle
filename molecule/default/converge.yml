@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    remote_hostname: "remote-host"
+    remote_auth: false
+  tasks:
+    - name: "Include ansible-role-sshuttle"
+      include_role:
+        name: "ansible-role-sshuttle"

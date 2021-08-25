@@ -4,10 +4,46 @@
   ansible.builtin.package:
     name: "{{ sshuttle_package }}"
 
-- name: "add {{ sshuttle_group }}"
+- name: "add {{ sshuttle_group }} group"
   group:
     name: "{{ sshuttle_group }}"
     state: present
+
+- name: "Add {{ sshuttle_user }} user"
+  user:
+    name: "{{ sshuttle_user }}"
+    generate_ssh_key: yes
+    force: true
+    ssh_key_file: ".ssh/sshuttle_rsa"
+    state: present
+  register: user_result
+
+- name: ssh config block
+  block:
+    - name: "Add {{ remote_ip }} to inventory"
+      add_host:
+        name: "{{ remote_ip }}"
+        groups: remote
+        ansible_ssh_user: "{{ remote_username }}"
+        ansible_ssh_password: "{{ remote_password }}"
+
+    - name: "Add ssh key to remote host"
+      authorized_key:
+        user: "{{ sshuttle_user }}"
+        key: "{{ user_result.ssh_public_key }}"
+        state: present
+      when: inventory_hostname == sshuttle_remote_ip
+
+    - name: "Register private key path value"
+      set_fact:
+        private_key_path: "{{ user_result.ssh_key_file }}"
+
+    - name: "Create {{ remote_username }} ssh config"
+      template:
+        dest: "{{ user_result.home }}/.ssh/config"
+        src: sshconfig.j2
+        backup: true
+  when: remote_auth
 
 - name: add required sshuttle sudo privileges
   template:
@@ -17,10 +53,10 @@
     group: root
     mode: 0440
 
-- name: create sshuttle unit file
+- name: "create sshuttle {{ ansible_service_mgr }} file"
   template:
-    src: "sshuttle.service.j2"
-    dest: "/etc/systemd/system/sshuttle.service"
+    src: "{{ ansible_service_mgr }}.service.j2"
+    dest: "{{ '/etc/systemd/system/' if ansible_service_mgr == 'systemd' else '/etc/init.d/' }}"
     owner: root
     group: root
     mode: 0440
