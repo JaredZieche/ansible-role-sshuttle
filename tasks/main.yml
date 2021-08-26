@@ -24,15 +24,6 @@
       add_host:
         name: "{{ remote_ip }}"
         groups: remote
-        ansible_ssh_user: "{{ remote_username }}"
-        ansible_ssh_password: "{{ remote_password }}"
-
-    - name: "Add ssh key to remote host"
-      authorized_key:
-        user: "{{ sshuttle_user }}"
-        key: "{{ user_result.ssh_public_key }}"
-        state: present
-      delegate_to: "{{ sshuttle_remote_ip }}"
 
     - name: "Register private key path value"
       set_fact:
@@ -43,6 +34,7 @@
         dest: "{{ user_result.home }}/.ssh/config"
         src: sshconfig.j2
         backup: true
+
   when: remote_auth
 
 - name: add required sshuttle sudo privileges
@@ -77,7 +69,6 @@
     owner: "{{ sshuttle_user }}"
     group: "{{ sshuttle_group }}"
     mode: 0755
-  notify: start sshuttle
 
 - name: add sshuttle config.json
   template:
@@ -86,4 +77,3 @@
     owner: "{{ sshuttle_user }}"
     group: "{{ sshuttle_group }}"
     mode: 0644
-  notify: restart sshuttle

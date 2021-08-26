@@ -8,18 +8,13 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: localhost
-    image: centos8-va:latest # geerlingguy/docker-centos8-ansible:latest
+  - name: sshremote
+    image: centos-va:latest # geerlingguy/docker-centos8-ansible:latest
+    command: ""
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     pre_build_image: true
     privileged: true
-    groups:
-      - local
-  - name: remote
-    image: centos8-va:latest # geerlingguy/docker-centos8-ansible:latest
-    pre_build_image: true
-    privileged: true
-    groups:
-      - remote
 provisioner:
   name: ansible
 verifier:

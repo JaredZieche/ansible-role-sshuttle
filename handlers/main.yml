@@ -13,6 +13,7 @@
     state: started
     enabled: true
   listen: start sshuttle
+  when: remote_auth
   become: true
 
 - name: restart sshuttle service

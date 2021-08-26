@@ -3,11 +3,19 @@
   hosts: all
   vars:
     remote_hostname: "remote-host"
-    remote_ip: ""
-    remote_user: "test"
-    remote_password: "password"
     remote_auth: true
   tasks:
     - name: "Include ansible-role-sshuttle"
       include_role:
         name: "ansible-role-sshuttle"
+
+- name: Remote_auth
+  hosts: remote
+  vars:
+    remote_hostname: "remote-host"
+    remote_auth: true
+  tasks:
+    - name: "Include ansible-role-sshuttle"
+      include_role:
+        name: "ansible-role-sshuttle"
+        tasks_from: remote_auth
