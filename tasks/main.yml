@@ -13,7 +13,6 @@
   user:
     name: "{{ sshuttle_user }}"
     generate_ssh_key: yes
-    force: true
     ssh_key_file: ".ssh/sshuttle_rsa"
     state: present
   register: user_result
@@ -34,6 +33,7 @@
         dest: "{{ user_result.home }}/.ssh/config"
         src: sshconfig.j2
         backup: true
+        mode: 0660
 
   when: remote_auth
 
@@ -60,6 +60,7 @@
     path: /etc/sshuttle
     owner: "{{ sshuttle_user }}"
     group: "{{ sshuttle_group }}"
+    mode: 0755
   register: sshuttle_dir
 
 - name: add sshuttle start script
