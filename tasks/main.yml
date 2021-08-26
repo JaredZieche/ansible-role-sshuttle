@@ -32,7 +32,7 @@
         user: "{{ sshuttle_user }}"
         key: "{{ user_result.ssh_public_key }}"
         state: present
-      when: inventory_hostname == sshuttle_remote_ip
+      delegate_to: "{{ sshuttle_remote_ip }}"
 
     - name: "Register private key path value"
       set_fact:

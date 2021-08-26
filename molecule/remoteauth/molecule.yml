@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: localhost
+    image: centos8-va:latest # geerlingguy/docker-centos8-ansible:latest
+    pre_build_image: true
+    privileged: true
+    groups:
+      - local
+  - name: remote
+    image: centos8-va:latest # geerlingguy/docker-centos8-ansible:latest
+    pre_build_image: true
+    privileged: true
+    groups:
+      - remote
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
