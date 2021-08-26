@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: sshuttle
-    image: centos-va:latest
+    image: geerlingguy/docker-centos8-ansible:latest
     pre_build_image: true
 provisioner:
   name: ansible
