@@ -1,0 +1,13 @@
+- name: "ensure sshpass is installed"
+  package:
+    state: present
+    name: sshpass
+
+- name: "Add ssh key to remote host"
+  authorized_key:
+    user: "{{ sshuttle_user }}"
+    key: "{{ user_result.ssh_public_key }}"
+    state: present
+  vars:
+    ansible_ssh_user: "{{ remote_username }}"
+    ansible_ssh_password: "{{ remote_password }}"

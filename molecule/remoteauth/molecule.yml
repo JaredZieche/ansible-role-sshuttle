@@ -8,9 +8,9 @@ lint: |
   yamllint .
   ansible-lint
 platforms:
-  - name: sshuttle
-    image: geerlingguy/docker-centos8-ansible:latest
-    command: "/sbin/init"
+  - name: sshremote
+    image: centos-va:latest # geerlingguy/docker-centos8-ansible:latest
+    command: ""
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     pre_build_image: true

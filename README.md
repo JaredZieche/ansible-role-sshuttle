@@ -27,12 +27,49 @@ Role Variables
 - remote_hostname: name for the remote host entry in your .ssh/config.
 
 
-Example Playbook
+Example Playbooks
 ----------------
 
-    - hosts: servers
-      roles:
-         - { role: jaredzieche.sshuttle }
+Run without creating ssh config file:
+
+    - name: Converge
+      hosts: all
+      vars:
+        remote_hostname: "remote-host"
+        remote_auth: false
+      tasks:
+        - name: "Include ansible-role-sshuttle"
+          include_role:
+            name: "ansible-role-sshuttle"
+
+Run and create remote auth setup(creating .ssh/config and adding authorized key to remote host). Ansible will perform add_host as group `remote`:
+
+    - name: Converge
+      hosts: all
+      vars:
+        remote_ip: "10.0.0.1"
+        remote_user: "test"
+        remote_password: "dontdoit"
+        remote_hostname: "remote-host"
+        remote_auth: true
+      tasks:
+        - name: "Include ansible-role-sshuttle"
+          include_role:
+            name: "ansible-role-sshuttle"
+
+    - name: Remote_auth
+      hosts: remote
+      vars:
+        remote_ip: "10.0.0.1"
+        remote_user: "test"
+        remote_password: "dontdoit"
+        remote_hostname: "remote-host"
+        remote_auth: true
+      tasks:
+        - name: "Include ansible-role-sshuttle"
+          include_role:
+            name: "ansible-role-sshuttle"
+            tasks_from: remote_auth
 
 License
 -------
