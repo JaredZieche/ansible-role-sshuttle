@@ -66,7 +66,7 @@
 - name: add sshuttle start script
   template:
     src: sshuttle.py.j2
-    dest: "{{ sshuttle_dir.path }}/shuttle.py"
+    dest: "{{ sshuttle_dir.path }}/sshuttle.py"
     owner: "{{ sshuttle_user }}"
     group: "{{ sshuttle_group }}"
     mode: 0755
