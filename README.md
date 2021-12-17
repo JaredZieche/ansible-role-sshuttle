@@ -18,6 +18,13 @@ Role Variables
 - sshuttle_group: The group under which the service will run
 - sshuttle_package: name of the sshuttle package to install
 - sshuttle_hosts: a dictionary od remote servers and their resolved subnets. This will be converted to json for the service configuration file
+  ```yaml
+  sshuttle_hosts:
+    "{{ remote_hostname }}":
+      - 10.0.0.0/24
+      - 172.16.0.0/24
+      - 192.168.0.0.0/24
+  ```
 - sshuttle_options: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe the sshuttle connections in [shuttle.py](templates/shuttle.py.j2).
 - sshuttle_args: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe additional arguments in [shuttle.py](templates/shuttle.py.j2).
 - ssh_cmd_args: Options from [manpage](https://sshuttle.readthedocs.io/en/stable/manpage.html) to describe the ssh command in [shuttle.py](templates/shuttle.py.j2).
@@ -48,8 +55,8 @@ Run and create remote auth setup(creating .ssh/config and adding authorized key 
       hosts: all
       vars:
         remote_ip: "10.0.0.1"
-        remote_user: "test"
-        remote_password: "dontdoit"
+        remote_user: "user that can auth with remote system"
+        remote_password: "{{ remote_auth_password }}"
         remote_hostname: "remote-host"
         remote_auth: true
       tasks:
@@ -61,8 +68,8 @@ Run and create remote auth setup(creating .ssh/config and adding authorized key 
       hosts: remote
       vars:
         remote_ip: "10.0.0.1"
-        remote_user: "test"
-        remote_password: "dontdoit"
+        remote_user: "user that can auth with remote system"
+        remote_password: "{{ remote_auth_password }}"
         remote_hostname: "remote-host"
         remote_auth: true
       tasks:
