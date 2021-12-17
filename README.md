@@ -48,8 +48,8 @@ Run and create remote auth setup(creating .ssh/config and adding authorized key 
       hosts: all
       vars:
         remote_ip: "10.0.0.1"
-        remote_user: "test"
-        remote_password: "dontdoit"
+        remote_user: "user that can auth with remote system"
+        remote_password: "{{ remote_auth_password }}"
         remote_hostname: "remote-host"
         remote_auth: true
       tasks:
@@ -61,8 +61,8 @@ Run and create remote auth setup(creating .ssh/config and adding authorized key 
       hosts: remote
       vars:
         remote_ip: "10.0.0.1"
-        remote_user: "test"
-        remote_password: "dontdoit"
+        remote_user: "user that can auth with remote system"
+        remote_password: "{{ remote_auth_password }}"
         remote_hostname: "remote-host"
         remote_auth: true
       tasks:
